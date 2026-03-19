@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mi Portafolio Digital – CASD JPP</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+
+  <style>
+    /* ── Variables de colores pastel ── */
+    :root {
+      --bg:        #f8f4ff;
+      --nav-bg:    #e8d5f5;
+      --card-1:    #fde8f0;   /* rosa suave */
+      --card-2:    #d6eaff;   /* azul bebé */
+      --card-3:    #d4f5e9;   /* menta */
+      --card-4:    #fff3cd;   /* amarillo crema */
+      --card-5:    #ffe5cc;   /* durazno */
+      --accent:    #a78bfa;   /* violeta pastel */
+      --accent2:   #60b8ff;
+      --text:      #3d3557;
+      --text-muted:#7a6f94;
+      --console-bg:#1e1e2e;
+      --console-text:#cdd6f4;
+      --console-green:#a6e3a1;
+      --console-red:  #f38ba8;
+      --console-prompt:#89b4fa;
+    }
+
+    /* ── Base ── */
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
+    }
+
+    /* ── Navbar ── */
+    .navbar {
+      background: var(--nav-bg) !important;
+      border-bottom: 2px solid var(--accent);
+      box-shadow: 0 2px 12px rgba(167,139,250,.15);
+    }
+    .navbar-brand {
+      font-weight: 800;
+      color: var(--text) !important;
+      font-size: 1.1rem;
+    }
+    .nav-link {
+      color: var(--text) !important;
+      font-weight: 600;
+      transition: color .2s;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--accent) !important;
+    }
+
+    /* ── Hero / Header ── */
+    #home {
+      background: linear-gradient(135deg, #e8d5f5 0%, #d6eaff 100%);
+      padding: 60px 0 40px;
+      border-bottom: 2px dashed #c8b6e8;
+    }
+    .avatar-wrap {
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      border: 4px solid var(--accent);
+      background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      box-shadow: 0 4px 18px rgba(167,139,250,.3);
+      cursor: pointer;
+    }
+    .avatar-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .avatar-placeholder { font-size: 3.5rem; color: var(--accent); }
+    .upload-hint { font-size:.75rem; color: var(--text-muted); margin-top:4px; }
+    .badge-grado {
+      background: var(--accent);
+      color: #fff;
+      font-size: .8rem;
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-weight: 700;
+    }
+
+    /* ── Sección títulos ── */
+    .section-title {
+      font-weight: 800;
+      font-size: 1.5rem;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 24px;
+    }
+    .section-title::after {
+      content:'';
+      display:block;
+      height:4px;
+      border-radius:4px;
+      background: var(--accent);
+      margin-top:4px;
+    }
+
+    /* ── Tarjetas Sobre Mí ── */
+    .card-sobre {
+      border: none;
+      border-radius: 18px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.07);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .card-sobre:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,.1); }
+    .card-sobre .card-body { padding: 22px; }
+    .card-sobre textarea {
+      border: none; background: transparent;
+      resize: none; width: 100%;
+      font-family: 'Nunito', sans-serif;
+      font-size: .9rem; color: var(--text);
+      outline: none;
+    }
+    .card-icon { font-size: 1.8rem; margin-bottom: 8px; }
+
+    /* ── Portafolio de proyectos ── */
+    #portafolio { background: #f0f8ff; padding: 50px 0; }
+    .proyecto-item {
+      background: #fff;
+      border-radius: 14px;
+      border: 2px solid transparent;
+      padding: 14px 18px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .proyecto-item:hover, .proyecto-item.active {
+      border-color: var(--accent);
+      background: var(--nav-bg);
+    }
+    .proyecto-item .py-icon {
+      background: var(--accent);
+      color: #fff;
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85rem; font-weight: 700;
+      font-family: 'Fira Code', monospace;
+      flex-shrink: 0;
+    }
+    .proyecto-item .py-name { font-weight: 700; font-size: .95rem; }
+    .proyecto-item .py-desc { font-size: .8rem; color: var(--text-muted); }
+
+    /* ── Consola Python ── */
+    .console-wrap {
+      background: var(--console-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 32px rgba(0,0,0,.3);
+    }
+    .console-topbar {
+      background: #313244;
+      padding: 10px 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .dot { width:12px; height:12px; border-radius:50%; }
+    .dot-r{background:#f38ba8;} .dot-y{background:#f9e2af;} .dot-g{background:#a6e3a1;}
+    .console-topbar span { color:#cdd6f4; font-size:.8rem; margin-left:auto; font-family:'Fira Code',monospace; }
+    .console-editor {
+      background: #1e1e2e;
+      color: var(--console-text);
+      font-family: 'Fira Code', monospace;
+      font-size: .85rem;
+      border: none;
+      width: 100%; padding: 16px;
+      min-height: 160px;
+      resize: vertical;
+      outline: none;
+      line-height: 1.6;
+    }
+    .console-output {
+      background: #11111b;
+      color: var(--console-text);
+      font-family: 'Fira Code', monospace;
+      font-size: .82rem;
+      padding: 14px 16px;
+      min-height: 100px;
+      max-height: 220px;
+      overflow-y: auto;
+      border-top: 1px solid #313244;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .console-output .out-ok  { color: var(--console-green); }
+    .console-output .out-err { color: var(--console-red); }
+    .console-output .out-prompt { color: var(--console-prompt); }
+    .btn-run {
+      background: var(--accent); color:#fff; border:none;
+      font-weight:700; border-radius:10px; padding:8px 22px;
+      transition: background .2s, transform .15s;
+    }
+    .btn-run:hover { background:#8b5cf6; transform:scale(1.03); }
+    .btn-clear {
+      background: #313244; color:#cdd6f4; border:none;
+      font-weight:600; border-radius:10px; padding:8px 16px;
+      transition: background .2s;
+    }
+    .btn-clear:hover { background:#45475a; }
+    .console-note {
+      font-size:.75rem; color: var(--text-muted);
+      background:#f3f0ff; border-radius:10px; padding:8px 12px;
+      margin-top:8px;
+    }
+
+    /* ── Artística ── */
+    #artistica { padding: 50px 0; background: #fff8fe; }
+
+    /* Carrusel personalizado */
+    .art-carousel-wrap {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 6px 28px rgba(249,168,212,.25);
+      border: 3px solid #fce7f3;
+      position: relative;
+    }
+    .art-carousel-wrap .carousel-item {
+      background: #fce7f3;
+    }
+    .art-carousel-wrap .carousel-item img {
+      width: 100%; height: 320px;
+      object-fit: cover;
+    }
+    .art-carousel-wrap .carousel-item .placeholder-slide {
+      height: 320px;
+      display: flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      background: linear-gradient(135deg,#fde8f0,#e8d5f5);
+      cursor: pointer;
+    }
+    .carousel-control-prev-icon,
+    .carousel-control-next-icon {
+      filter: invert(40%) sepia(60%) saturate(500%) hue-rotate(290deg);
+    }
+    .carousel-indicators [data-bs-target] {
+      background-color: var(--accent);
+      border-radius: 50%;
+      width: 10px; height: 10px;
+    }
+    /* Slide counter badge */
+    .slide-counter {
+      position: absolute; bottom: 12px; right: 14px; z-index:10;
+      background: rgba(167,139,250,.85);
+      color: #fff; font-size:.75rem; font-weight:700;
+      padding: 3px 10px; border-radius: 20px;
+      font-family: 'Fira Code', monospace;
+    }
+    /* Panel info derecho */
+    .art-info-panel {
+      background: linear-gradient(160deg,#fde8f0 0%,#e8d5f5 100%);
+      border-radius: 20px;
+      padding: 28px 26px;
+      height: 100%;
+      box-shadow: 0 4px 18px rgba(167,139,250,.13);
+      display: flex; flex-direction:column; gap:14px;
+    }
+    .art-info-panel .gallery-title-input {
+      font-size: 1.25rem; font-weight: 800;
+      border: none; background: transparent;
+      color: var(--text); outline: none;
+      border-bottom: 2px dashed var(--accent);
+      width: 100%; padding: 4px 0;
+      font-family: 'Nunito', sans-serif;
+    }
+    .art-info-panel .gallery-tematica {
+      font-size: .85rem; font-weight:700;
+      color: #a78bfa;
+      background: #fff;
+      border-radius: 20px;
+      padding: 4px 14px;
+      display:inline-block;
+      border: 1.5px solid #ddd6fe;
+    }
+    .art-info-panel textarea {
+      border: none; background: rgba(255,255,255,.65);
+      border-radius: 12px; padding: 12px;
+      resize: none; width: 100%;
+      font-family: 'Nunito', sans-serif;
+      font-size: .9rem; color: var(--text); outline: none;
+      flex-grow: 1; min-height: 100px;
+    }
+    /* Tira de miniaturas bajo el carrusel */
+    .thumb-tira {
+      display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; align-items:center;
+    }
+    .thumb-mini {
+      width: 58px; height: 58px;
+      border-radius: 10px;
+      background: #fce7f3;
+      border: 2px solid #f9a8d4;
+      overflow:hidden; cursor:pointer;
+      transition: transform .2s, border-color .2s;
+      flex-shrink:0;
+    }
+    .thumb-mini:hover { transform:scale(1.08); border-color:var(--accent); }
+    .thumb-mini img { width:100%; height:100%; object-fit:cover; }
+    .thumb-mini.add-btn {
+      display:flex; align-items:center; justify-content:center;
+      background: #fde8f0; border: 2px dashed #f9a8d4;
+      font-size:1.3rem; color:#f472b6;
+    }
+    .thumb-mini.add-btn:hover { background:#fbd5e6; }
+
+    /* ── Tecnología ── */
+    #tecnologia { background: #f0fff8; padding:50px 0; }
+    .tech-card {
+      border:none; border-radius:18px;
+      box-shadow:0 2px 12px rgba(0,0,0,.07);
+      transition: transform .25s;
+      text-align:center; padding:28px 20px;
+    }
+    .tech-card:hover { transform:translateY(-5px); }
+    .tech-card .tech-icon { font-size:2.5rem; margin-bottom:10px; }
+    .tech-card h6 { font-weight:800; margin-bottom:6px; }
+    .progress { height:8px; border-radius:8px; }
+
+    /* ── MakeCode / Bloques ── */
+    .makecode-wrap {
+      background: #fff;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 6px 32px rgba(96,184,255,.18);
+      border: 3px solid #bae6fd;
+    }
+    .makecode-topbar {
+      background: linear-gradient(90deg,#38bdf8,#818cf8);
+      padding: 12px 18px;
+      display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    }
+    .makecode-topbar .mc-title {
+      color:#fff; font-weight:800; font-size:1rem;
+    }
+    .makecode-topbar .mc-badge {
+      background:rgba(255,255,255,.25);
+      color:#fff; font-size:.75rem; font-weight:700;
+      padding:3px 10px; border-radius:20px;
+    }
+    .makecode-tabs {
+      display:flex; background:#e0f2fe; border-bottom:2px solid #bae6fd;
+    }
+    .makecode-tabs button {
+      flex:1; border:none; background:transparent;
+      padding:10px 8px; font-weight:700; font-size:.85rem;
+      color: #0369a1; cursor:pointer; transition:background .2s,color .2s;
+      font-family:'Nunito',sans-serif;
+    }
+    .makecode-tabs button.active, .makecode-tabs button:hover {
+      background:#fff; color:var(--accent); border-bottom:3px solid var(--accent);
+    }
+    .makecode-iframe-wrap {
+      position:relative; width:100%;
+      background:#f0f9ff;
+    }
+    .makecode-iframe-wrap iframe {
+      width:100%; border:none; display:block;
+      min-height:500px;
+    }
+    .mc-loading {
+      position:absolute; inset:0;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      background:#f0f9ff; z-index:5;
+      gap:10px; font-weight:700; color:#0369a1;
+    }
+    .mc-spinner {
+      width:40px; height:40px;
+      border:4px solid #bae6fd;
+      border-top-color:#38bdf8;
+      border-radius:50%;
+      animation: spin .8s linear infinite;
+    }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    /* Lista proyectos MakeCode */
+    .mc-proyecto {
+      background:#fff;
+      border:2px solid #e0f2fe;
+      border-radius:14px;
+      padding:14px 16px;
+      margin-bottom:10px;
+      cursor:pointer;
+      display:flex; align-items:center; gap:12px;
+      transition: border-color .2s, background .2s, transform .15s;
+    }
+    .mc-proyecto:hover, .mc-proyecto.active {
+      border-color:#38bdf8; background:#e0f2fe; transform:translateX(3px);
+    }
+    .mc-proyecto .mc-icon {
+      width:40px; height:40px; border-radius:10px;
+      background:linear-gradient(135deg,#38bdf8,#818cf8);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.2rem; flex-shrink:0;
+    }
+    .mc-proyecto .mc-name { font-weight:800; font-size:.95rem; }
+    .mc-proyecto .mc-desc { font-size:.78rem; color:var(--text-muted); }
+    .mc-proyecto .mc-plat {
+      margin-left:auto;
+      background:#dbeafe; color:#1d4ed8;
+      font-size:.7rem; font-weight:700;
+      padding:3px 8px; border-radius:10px; flex-shrink:0;
+    }
+    .btn-mc-add {
+      background:var(--card-2); border:2px dashed #93c5fd;
+      border-radius:10px; font-weight:700; padding:8px 16px;
+      cursor:pointer; transition:background .2s;
+      font-family:'Nunito',sans-serif; font-size:.85rem;
+      color:var(--text);
+    }
+    .btn-mc-add:hover { background:#bfdbfe; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--nav-bg);
+      border-top: 2px solid var(--accent);
+      padding: 20px 0;
+      text-align:center;
+      font-size:.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ── Editable fields ── */
+    [contenteditable="true"] {
+      outline:none;
+      border-bottom: 1.5px dashed var(--accent);
+      display:inline-block; min-width:60px;
+      transition: border-color .2s;
+    }
+    [contenteditable="true"]:focus { border-color: #8b5cf6; }
+    [contenteditable="true"]:empty::before {
+      content: attr(data-placeholder);
+      color: #bbb;
+    }
+
+    /* ── Scroll suave ── */
+    section { scroll-margin-top: 70px; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ NAVBAR ═══════════════ -->
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+    <a class="navbar-brand" href="#home">
+      <i class="bi bi-mortarboard-fill me-2" style="color:var(--accent)"></i>CASD JPP
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto gap-2">
+        <li class="nav-item"><a class="nav-link active" href="#home"><i class="bi bi-house-door me-1"></i>Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#portafolio"><i class="bi bi-folder-fill me-1"></i>Portafolio</a></li>
+        <li class="nav-item"><a class="nav-link" href="#artistica"><i class="bi bi-palette-fill me-1"></i>Artística</a></li>
+        <li class="nav-item"><a class="nav-link" href="#tecnologia"><i class="bi bi-cpu-fill me-1"></i>Tecnología</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════ HOME ═══════════════ -->
+<section id="home">
+  <div class="container">
+    <div class="row align-items-center g-4">
+
+      <!-- Avatar -->
+      <div class="col-12 col-md-auto text-center">
+        <div class="avatar-wrap mx-auto" id="avatarWrap" onclick="document.getElementById('fotoAvatar').click()">
+          <span class="avatar-placeholder" id="avatarIcon"><i class="bi bi-person-fill"></i></span>
+          <img id="avatarImg" src="" alt="" style="display:none"/>
+        </div>
+        <input type="file" id="fotoAvatar" accept="image/*" style="display:none"/>
+        <p class="upload-hint">📷 Clic para subir foto</p>
+      </div>
+
+      <!-- Info -->
+      <div class="col">
+        <span class="badge-grado mb-2 d-inline-block">Grado 9°</span>
+        <h1 style="font-weight:800; font-size:1.8rem;">
+          <span contenteditable="true" data-placeholder="Tu nombre aquí">Nombre del Estudiante</span>
+        </h1>
+        <p class="mb-1">
+          <i class="bi bi-building me-1" style="color:var(--accent)"></i>
+          Institución Educativa CASD JPP
+        </p>
+        <p class="mb-0" style="color:var(--text-muted);">
+          <i class="bi bi-calendar3 me-1"></i>Año Escolar 2025
+        </p>
+      </div>
+
+      <!-- Botón subir -->
+      <div class="col-12 col-md-auto text-center">
+        <button class="btn btn-run" onclick="document.getElementById('fotoAvatar').click()">
+          <i class="bi bi-cloud-upload me-2"></i>Subir foto
+        </button>
+      </div>
+    </div>
+
+    <!-- Sobre Mí -->
+    <div class="mt-5">
+      <h2 class="section-title">👤 Sobre Mí <small style="font-size:.9rem;font-weight:400;color:var(--text-muted)">(About Me)</small></h2>
+      <div class="row g-3">
+        <div class="col-12 col-md-4">
+          <div class="card card-sobre h-100" style="background:var(--card-1)">
+            <div class="card-body">
+              <div class="card-icon">📖</div>
+              <h6 style="font-weight:800">Biografía</h6>
+              <textarea rows="4" placeholder="Escribe algo sobre ti: ¿De dónde eres? ¿Qué te apasiona?"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card card-sobre h-100" style="background:var(--card-2)">
+            <div class="card-body">
+              <div class="card-icon">❤️</div>
+              <h6 style="font-weight:800">Gustos</h6>
+              <textarea rows="4" placeholder="¿Qué música escuchas? ¿Qué comida te gusta? ¿Películas favoritas?"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="card card-sobre h-100" style="background:var(--card-3)">
+            <div class="card-body">
+              <div class="card-icon">🎮</div>
+              <h6 style="font-weight:800">Hobbies</h6>
+              <textarea rows="4" placeholder="¿Qué haces en tu tiempo libre? Deportes, videojuegos, dibujo..."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PORTAFOLIO ═══════════════ -->
+<section id="portafolio">
+  <div class="container">
+    <h2 class="section-title">💻 Portafolio de Proyectos de Programación</h2>
+    <div class="row g-4">
+
+      <!-- Lista ejercicios -->
+      <div class="col-12 col-lg-5">
+        <h6 style="font-weight:700; color:var(--text-muted); margin-bottom:12px;">
+          <i class="bi bi-file-earmark-code me-2"></i>Mis Ejercicios Python
+        </h6>
+
+        <div id="listaProyectos">
+          <!-- Ejercicio 1 -->
+          <div class="proyecto-item active" data-code='print("¡Hola Mundo!")\nprint("Mi nombre es: Estudiante")\nprint("Soy de grado 9°")'>
+            <div class="py-icon">.py</div>
+            <div>
+              <div class="py-name">1. hola_mundo.py</div>
+              <div class="py-desc">Mi primer programa en Python</div>
+            </div>
+          </div>
+          <!-- Ejercicio 2 -->
+          <div class="proyecto-item" data-code='# Variables y operaciones básicas\nnombre = "Estudiante"\nedad = 15\ncurso = "9°"\nprint("Nombre:", nombre)\nprint("Edad:", edad, "años")\nprint("Curso:", curso)'>
+            <div class="py-icon">.py</div>
+            <div>
+              <div class="py-name">2. variables.py</div>
+              <div class="py-desc">Variables y tipos de datos</div>
+            </div>
+          </div>
+          <!-- Ejercicio 3 -->
+          <div class="proyecto-item" data-code='# Ciclo for - tabla de multiplicar\nnumero = 5\nprint(f"Tabla del {numero}:")\nfor i in range(1, 11):\n    resultado = numero * i\n    print(f"{numero} x {i} = {resultado}")'>
+            <div class="py-icon">.py</div>
+            <div>
+              <div class="py-name">3. ciclos.py</div>
+              <div class="py-desc">Ciclos for y while</div>
+            </div>
+          </div>
+          <!-- Ejercicio 4 -->
+          <div class="proyecto-item" data-code='# Condicionales\nnota = 85\nif nota >= 90:\n    print("Desempeño SUPERIOR 🏆")\nelif nota >= 70:\n    print("Desempeño ALTO 🎯")\nelif nota >= 60:\n    print("Desempeño BÁSICO 📚")\nelse:\n    print("Desempeño BAJO ❌")\nprint(f"Tu nota: {nota}")'>
+            <div class="py-icon">.py</div>
+            <div>
+              <div class="py-name">4. condicionales.py</div>
+              <div class="py-desc">If, elif y else</div>
+            </div>
+          </div>
+          <!-- Ejercicio 5 -->
+          <div class="proyecto-item" data-code='# Funciones\ndef saludar(nombre):\n    return f"Hola, {nombre}! 👋"\n\ndef sumar(a, b):\n    return a + b\n\nprint(saludar("Profe"))\nprint("3 + 4 =", sumar(3, 4))\nprint("10 + 25 =", sumar(10, 25))'>
+            <div class="py-icon">.py</div>
+            <div>
+              <div class="py-name">5. funciones.py</div>
+              <div class="py-desc">Definición y uso de funciones</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Agregar ejercicio -->
+        <button class="btn btn-sm mt-3" style="background:var(--card-4); border:2px dashed #fbbf24; border-radius:10px; font-weight:700;"
+          onclick="agregarEjercicio()">
+          <i class="bi bi-plus-circle me-1"></i> Agregar mi ejercicio
+        </button>
+      </div>
+
+      <!-- Consola -->
+      <div class="col-12 col-lg-7">
+        <h6 style="font-weight:700; color:var(--text-muted); margin-bottom:12px;">
+          <i class="bi bi-terminal-fill me-2"></i>Compilador / Consola Python
+        </h6>
+        <div class="console-wrap">
+          <div class="console-topbar">
+            <div class="dot dot-r"></div>
+            <div class="dot dot-y"></div>
+            <div class="dot dot-g"></div>
+            <span>python 3.x — consola simulada</span>
+          </div>
+          <textarea class="console-editor" id="codeEditor" placeholder="# Escribe tu código Python aquí o selecciona un ejercicio a la izquierda&#10;print('¡Hola Mundo!')" spellcheck="false"></textarea>
+          <div style="background:#181825; padding:10px 14px; display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="btn-run" onclick="ejecutarCodigo()">
+              <i class="bi bi-play-fill me-1"></i>Ejecutar ▶
+            </button>
+            <button class="btn-clear" onclick="limpiarConsola()">
+              <i class="bi bi-trash3 me-1"></i>Limpiar
+            </button>
+            <button class="btn-clear" onclick="limpiarEditor()">
+              <i class="bi bi-file-earmark-plus me-1"></i>Nuevo
+            </button>
+          </div>
+          <div class="console-output" id="outputConsola">
+            <span class="out-prompt">>>> </span><span style="color:#a6adc8">Selecciona un ejercicio o escribe tu código y presiona Ejecutar ▶</span>
+          </div>
+        </div>
+        <div class="console-note">
+          <i class="bi bi-info-circle me-1"></i>
+          <strong>Nota:</strong> Esta es una consola <em>simulada</em> para Python básico.
+          Soporta <code>print()</code>, variables, operaciones, ciclos <code>for/while</code>, condicionales y funciones simples.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ ARTÍSTICA ═══════════════ -->
+<section id="artistica">
+  <div class="container">
+    <h2 class="section-title">🎨 Artística</h2>
+
+    <div class="row g-4 align-items-stretch">
+
+      <!-- COL IZQUIERDA: Carrusel -->
+      <div class="col-12 col-lg-7">
+        <div class="art-carousel-wrap">
+          <div id="galeriaCarrusel" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-indicators" id="carouselIndicators"></div>
+            <div class="carousel-inner" id="carouselInner">
+              <!-- Slide vacío inicial -->
+              <div class="carousel-item active" id="slideVacio">
+                <div class="placeholder-slide" onclick="document.getElementById('inputCarrusel').click()">
+                  <i class="bi bi-images" style="font-size:3.5rem;color:#e879a0"></i>
+                  <p class="mt-2 fw-bold" style="color:#e879a0">Agrega fotos a tu galería</p>
+                  <small style="color:#f472b6">Clic para subir imágenes</small>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#galeriaCarrusel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#galeriaCarrusel" data-bs-slide="next">
+              <span class="carousel-control-next-icon"></span>
+            </button>
+            <span class="slide-counter" id="slideCounter">0 fotos</span>
+          </div>
+        </div>
+
+        <!-- Tira de miniaturas -->
+        <div class="thumb-tira" id="thumbTira">
+          <div class="thumb-mini add-btn" id="btnAgregarFoto" onclick="document.getElementById('inputCarrusel').click()" title="Agregar fotos">
+            <i class="bi bi-plus-lg"></i>
+          </div>
+        </div>
+        <input type="file" id="inputCarrusel" accept="image/*" multiple style="display:none"/>
+      </div>
+
+      <!-- COL DERECHA: Info de la galería -->
+      <div class="col-12 col-lg-5">
+        <div class="art-info-panel">
+          <div>
+            <label style="font-size:.75rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;">
+              <i class="bi bi-collection-fill me-1"></i>Título de la Galería
+            </label>
+            <input type="text" class="gallery-title-input" id="galleryTitle"
+              placeholder="Ej: Mis obras de dibujo 2025" value="Mi Galería Artística"/>
+          </div>
+
+          <div>
+            <label style="font-size:.75rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;">
+              <i class="bi bi-tag-fill me-1"></i>Temática
+            </label><br/>
+            <input type="text" id="galleryTematica"
+              style="background:#fff;border:1.5px solid #ddd6fe;border-radius:20px;padding:5px 14px;font-size:.85rem;font-weight:700;color:#a78bfa;outline:none;width:100%;margin-top:4px;"
+              placeholder="Ej: Dibujo, Pintura, Fotografía..."/>
+          </div>
+
+          <div style="flex-grow:1;display:flex;flex-direction:column;">
+            <label style="font-size:.75rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;">
+              <i class="bi bi-pencil-fill me-1"></i>Descripción de la Galería
+            </label>
+            <textarea id="galleryDesc" rows="5"
+              placeholder="Describe el proyecto artístico: ¿Qué trabajaste? ¿Qué técnica usaste? ¿Qué aprendiste con esta experiencia?"></textarea>
+          </div>
+
+          <div style="background:rgba(255,255,255,.6);border-radius:12px;padding:12px;">
+            <p class="mb-2" style="font-size:.8rem;font-weight:700;color:var(--text-muted);">
+              <i class="bi bi-camera-video me-1"></i>Video complementario
+            </p>
+            <input type="text" id="videoUrl2"
+              class="form-control" style="border-radius:10px;font-size:.82rem;"
+              placeholder="https://youtube.com/..."
+              oninput="mostrarVideo2(this.value)"/>
+            <div id="videoFrame2" class="mt-2"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TECNOLOGÍA ═══════════════ -->
+<section id="tecnologia">
+  <div class="container">
+    <h2 class="section-title">🤖 Tecnología – Lo que Aprendí</h2>
+    <div class="row g-3">
+      <div class="col-6 col-md-3">
+        <div class="tech-card" style="background:var(--card-2)">
+          <div class="tech-icon">🌐</div>
+          <h6>HTML</h6>
+          <div class="progress mt-2">
+            <div class="progress-bar" style="width:70%; background:#60b8ff"></div>
+          </div>
+          <small style="color:var(--text-muted);">70%</small>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="tech-card" style="background:var(--card-1)">
+          <div class="tech-icon">🎨</div>
+          <h6>CSS</h6>
+          <div class="progress mt-2">
+            <div class="progress-bar" style="width:55%; background:#f9a8d4"></div>
+          </div>
+          <small style="color:var(--text-muted);">55%</small>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="tech-card" style="background:var(--card-4)">
+          <div class="tech-icon">⚡</div>
+          <h6>JavaScript</h6>
+          <div class="progress mt-2">
+            <div class="progress-bar" style="width:40%; background:#fbbf24"></div>
+          </div>
+          <small style="color:var(--text-muted);">40%</small>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="tech-card" style="background:var(--card-3)">
+          <div class="tech-icon">🐍</div>
+          <h6>Python</h6>
+          <div class="progress mt-2">
+            <div class="progress-bar" style="width:60%; background:#6ee7b7"></div>
+          </div>
+          <small style="color:var(--text-muted);">60%</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reflexión -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="card card-sobre" style="background: linear-gradient(135deg,#e8d5f5,#d6eaff)">
+          <div class="card-body">
+            <h5 style="font-weight:800"><i class="bi bi-lightbulb-fill me-2" style="color:#fbbf24"></i>Mi Reflexión del Año</h5>
+            <textarea rows="4" class="w-100" placeholder="¿Qué aprendiste este año en informática? ¿Qué fue lo más difícil? ¿Qué quieres seguir aprendiendo?" style="border:none; background:transparent; font-family:'Nunito',sans-serif; font-size:.95rem; outline:none; resize:none;"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── EDITOR DE BLOQUES / MAKECODE ── -->
+    <div class="row mt-5">
+      <div class="col-12">
+        <h3 class="section-title">🧩 Editor de Bloques – MakeCode & Proyectos Online</h3>
+        <p style="color:var(--text-muted);font-size:.95rem;margin-bottom:20px;">
+          Aquí puedes abrir tus proyectos de programación en bloques. Selecciona uno del repositorio o
+          escribe el enlace de tu proyecto de MakeCode / Scratch.
+        </p>
+      </div>
+    </div>
+
+    <div class="row g-4 align-items-start">
+
+      <!-- Lista proyectos bloques -->
+      <div class="col-12 col-lg-4">
+        <h6 style="font-weight:700;color:var(--text-muted);margin-bottom:12px;">
+          <i class="bi bi-collection-play me-2"></i>Repositorio de Proyectos
+        </h6>
+        <div id="listaMC">
+
+          <div class="mc-proyecto active"
+            data-url="https://makecode.microbit.org/#pub:_aaabbbccc111"
+            data-embed="https://makecode.microbit.org/---run?id=_aaabbbccc111"
+            data-tipo="embed">
+            <div class="mc-icon">🤖</div>
+            <div>
+              <div class="mc-name">Hola Micro:bit</div>
+              <div class="mc-desc">LEDs y mensajes básicos</div>
+            </div>
+            <span class="mc-plat">Micro:bit</span>
+          </div>
+
+          <div class="mc-proyecto"
+            data-url="https://makecode.microbit.org/#pub:_bbb222ccc333"
+            data-embed="https://makecode.microbit.org/---run?id=_bbb222ccc333"
+            data-tipo="embed">
+            <div class="mc-icon">🎮</div>
+            <div>
+              <div class="mc-name">Juego con botones</div>
+              <div class="mc-desc">Interacción con botones A y B</div>
+            </div>
+            <span class="mc-plat">Micro:bit</span>
+          </div>
+
+          <div class="mc-proyecto"
+            data-url="https://scratch.mit.edu/projects/123456789/embed"
+            data-embed="https://scratch.mit.edu/projects/123456789/embed"
+            data-tipo="embed">
+            <div class="mc-icon">🐱</div>
+            <div>
+              <div class="mc-name">Mi proyecto Scratch</div>
+              <div class="mc-desc">Animación con sprites</div>
+            </div>
+            <span class="mc-plat" style="background:#ffe4e6;color:#e11d48;">Scratch</span>
+          </div>
+
+          <div class="mc-proyecto"
+            data-url="https://app.edabit.com"
+            data-embed=""
+            data-tipo="enlace">
+            <div class="mc-icon">⚡</div>
+            <div>
+              <div class="mc-name">Reto Edabit</div>
+              <div class="mc-desc">Ejercicio de lógica online</div>
+            </div>
+            <span class="mc-plat" style="background:#fef9c3;color:#854d0e;">Web</span>
+          </div>
+
+        </div>
+
+        <!-- Agregar proyecto -->
+        <div class="mt-3" style="display:flex;flex-direction:column;gap:8px;">
+          <input type="text" id="mcUrlInput" class="form-control"
+            placeholder="https://makecode.microbit.org/... o Scratch..."
+            style="border-radius:10px;font-size:.85rem;border:2px solid #bae6fd;"/>
+          <input type="text" id="mcNombreInput" class="form-control"
+            placeholder="Nombre del proyecto"
+            style="border-radius:10px;font-size:.85rem;border:2px solid #bae6fd;"/>
+          <button class="btn-mc-add" onclick="agregarProyectoMC()">
+            <i class="bi bi-plus-circle me-1"></i>Agregar proyecto
+          </button>
+        </div>
+      </div>
+
+      <!-- Visor / Editor -->
+      <div class="col-12 col-lg-8">
+        <div class="makecode-wrap">
+          <!-- Barra superior -->
+          <div class="makecode-topbar">
+            <i class="bi bi-puzzle-fill" style="color:#fff;font-size:1.2rem;"></i>
+            <span class="mc-title" id="mcNombreActivo">Hola Micro:bit</span>
+            <span class="mc-badge" id="mcPlatActiva">Micro:bit</span>
+            <a id="mcAbrirBtn" href="#" target="_blank"
+              style="margin-left:auto;background:rgba(255,255,255,.25);color:#fff;border-radius:10px;padding:5px 14px;text-decoration:none;font-size:.8rem;font-weight:700;">
+              <i class="bi bi-box-arrow-up-right me-1"></i>Abrir completo
+            </a>
+          </div>
+
+          <!-- Tabs: Vista embed / Bloques / Instrucciones -->
+          <div class="makecode-tabs">
+            <button class="active" id="tabEmbed" onclick="cambiarTabMC('embed')">
+              <i class="bi bi-play-circle me-1"></i>Ejecutar
+            </button>
+            <button id="tabEditor" onclick="cambiarTabMC('editor')">
+              <i class="bi bi-puzzle me-1"></i>Editor Bloques
+            </button>
+            <button id="tabInfo" onclick="cambiarTabMC('info')">
+              <i class="bi bi-info-circle me-1"></i>Instrucciones
+            </button>
+          </div>
+
+          <!-- Área iframe -->
+          <div class="makecode-iframe-wrap" id="mcVisor">
+            <div class="mc-loading" id="mcLoading">
+              <div class="mc-spinner"></div>
+              <span>Cargando proyecto...</span>
+            </div>
+            <iframe id="mcIframe" src="" onload="ocultarLoadingMC()"
+              allowfullscreen sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-modals"></iframe>
+          </div>
+
+          <!-- Tab Info -->
+          <div id="tabInfoContent" style="display:none;padding:22px;background:#f0f9ff;">
+            <h6 style="font-weight:800;color:#0369a1;margin-bottom:12px;">
+              <i class="bi bi-book-fill me-2"></i>¿Cómo usar el editor de bloques?
+            </h6>
+            <ol style="font-size:.9rem;color:var(--text);line-height:1.9;">
+              <li>Selecciona un proyecto del repositorio a la izquierda.</li>
+              <li>Usa la pestaña <strong>Ejecutar</strong> para ver el simulador funcionando.</li>
+              <li>Usa la pestaña <strong>Editor Bloques</strong> para abrir el editor completo de MakeCode en esta ventana.</li>
+              <li>Para agregar tu propio proyecto: copia el enlace desde MakeCode o Scratch y pégalo en el campo de la izquierda.</li>
+              <li>Clic en <strong>Abrir completo</strong> para editar en pantalla completa.</li>
+            </ol>
+            <div style="background:#e0f2fe;border-radius:12px;padding:12px;font-size:.82rem;margin-top:10px;">
+              <strong>💡 Consejo:</strong> En MakeCode Micro:bit ve a <em>Compartir</em> → <em>Publicar proyecto</em>
+              y copia el enlace para pegarlo aquí.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <i class="bi bi-heart-fill me-1" style="color:#f9a8d4"></i>
+  Portafolio Digital – Institución Educativa CASD JPP · Grado 9° ·
+  <span id="footerYear"></span>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+/* ════════════════════════════════════════
+   UTILIDADES GENERALES
+════════════════════════════════════════ */
+document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+// Foto avatar
+document.getElementById('fotoAvatar').addEventListener('change', function(){
+  const file = this.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById('avatarIcon').style.display = 'none';
+    const img = document.getElementById('avatarImg');
+    img.src = e.target.result;
+    img.style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+});
+
+/* ════════════════════════════════════════
+   PORTAFOLIO – selección de ejercicios
+════════════════════════════════════════ */
+document.querySelectorAll('.proyecto-item').forEach(item => {
+  item.addEventListener('click', function(){
+    document.querySelectorAll('.proyecto-item').forEach(i => i.classList.remove('active'));
+    this.classList.add('active');
+    const code = (this.dataset.code || '').replace(/\\n/g, '\n');
+    document.getElementById('codeEditor').value = code;
+    document.getElementById('outputConsola').innerHTML =
+      '<span class="out-prompt">>>> </span><span style="color:#a6adc8">Código cargado. Presiona Ejecutar ▶</span>';
+  });
+});
+
+function agregarEjercicio(){
+  const nombre = prompt('Nombre del archivo (ej: mi_proyecto.py):');
+  if (!nombre) return;
+  const desc  = prompt('Descripción corta:') || 'Mi ejercicio';
+  const lista = document.getElementById('listaProyectos');
+  const num   = lista.querySelectorAll('.proyecto-item').length + 1;
+  const div   = document.createElement('div');
+  div.className = 'proyecto-item';
+  div.dataset.code = `# ${nombre}\n# Escribe tu código aquí\nprint("Hola desde ${nombre}")`;
+  div.innerHTML = `
+    <div class="py-icon">.py</div>
+    <div>
+      <div class="py-name">${num}. ${nombre}</div>
+      <div class="py-desc">${desc}</div>
+    </div>`;
+  div.addEventListener('click', function(){
+    document.querySelectorAll('.proyecto-item').forEach(i => i.classList.remove('active'));
+    this.classList.add('active');
+    document.getElementById('codeEditor').value = this.dataset.code;
+  });
+  lista.appendChild(div);
+}
+
+/* ════════════════════════════════════════
+   CONSOLA PYTHON SIMULADA
+════════════════════════════════════════ */
+function ejecutarCodigo(){
+  const code = document.getElementById('codeEditor').value.trim();
+  const out  = document.getElementById('outputConsola');
+  out.innerHTML = '<span class="out-prompt">>>> Ejecutando...\n</span>';
+
+  if (!code){ out.innerHTML += '<span class="out-err">Error: No hay código para ejecutar.</span>'; return; }
+
+  try {
+    const resultado = interpretarPython(code);
+    out.innerHTML = resultado
+      .map(l => l.startsWith('ERROR') ? `<span class="out-err">${escHtml(l)}</span>`
+                                      : `<span class="out-ok">${escHtml(l)}</span>`)
+      .join('\n');
+    if (!resultado.length) out.innerHTML = '<span style="color:#a6adc8">⚠ El código no produjo salida. ¿Usaste print()?</span>';
+  } catch(e){
+    out.innerHTML = `<span class="out-err">Error: ${escHtml(e.message)}</span>`;
+  }
+}
+
+function limpiarConsola(){
+  document.getElementById('outputConsola').innerHTML =
+    '<span class="out-prompt">>>> </span><span style="color:#a6adc8">Consola limpiada.</span>';
+}
+function limpiarEditor(){
+  document.getElementById('codeEditor').value = '';
+  document.querySelectorAll('.proyecto-item').forEach(i => i.classList.remove('active'));
+  limpiarConsola();
+}
+function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* ── Intérprete Python básico ── */
+function interpretarPython(code){
+  const lineas = code.split('\n');
+  const salida = [];
+  const vars   = {};
+  const fns    = {};
+
+  // Pre-scan para definir funciones simples
+  let i = 0;
+  while (i < lineas.length){
+    const l = lineas[i].trim();
+    if (l.startsWith('def ') && l.endsWith(':')){
+      const match = l.match(/^def\s+(\w+)\s*\(([^)]*)\)\s*:/);
+      if (match){
+        const fnName   = match[1];
+        const paramStr = match[2];
+        const params   = paramStr.split(',').map(p=>p.trim()).filter(Boolean);
+        const body     = [];
+        i++;
+        while (i < lineas.length && (lineas[i].startsWith('    ') || lineas[i].startsWith('\t'))){
+          body.push(lineas[i].replace(/^    |\t/,''));
+          i++;
+        }
+        fns[fnName] = { params, body };
+        continue;
+      }
+    }
+    i++;
+  }
+
+  // Ejecutar línea por línea
+  i = 0;
+  while (i < lineas.length){
+    try { i = ejecutarLinea(lineas, i, vars, fns, salida); }
+    catch(e){ salida.push('ERROR: ' + e.message); i++; }
+  }
+  return salida;
+}
+
+function ejecutarLinea(lineas, i, vars, fns, salida){
+  const raw  = lineas[i];
+  const line = raw.trim();
+
+  if (!line || line.startsWith('#'))      return i+1; // comentario/vacía
+  if (line.startsWith('def '))            return saltarBloque(lineas, i); // ya procesada
+  if (line.startsWith('print('))          { ejPrint(line, vars, fns, salida); return i+1; }
+  if (line.startsWith('for ') && line.endsWith(':'))  return ejFor(lineas, i, vars, fns, salida);
+  if (line.startsWith('while ') && line.endsWith(':'))return ejWhile(lineas, i, vars, fns, salida);
+  if (line.startsWith('if ') && line.endsWith(':'))   return ejIf(lineas, i, vars, fns, salida);
+
+  // Asignación simple
+  const asign = line.match(/^(\w+)\s*=\s*(.+)$/);
+  if (asign && !line.includes('==') ){
+    vars[asign[1]] = evalExpr(asign[2], vars, fns);
+    return i+1;
+  }
+  return i+1;
+}
+
+// ── print() ──
+function ejPrint(line, vars, fns, salida){
+  const inner = line.slice(6, -1).trim();
+  const args  = splitArgs(inner);
+  const parts = args.map(a => String(evalExpr(a.trim(), vars, fns)));
+  salida.push(parts.join(' '));
+}
+
+// ── for ──
+function ejFor(lineas, start, vars, fns, salida){
+  const line  = lineas[start].trim();
+  const match = line.match(/^for\s+(\w+)\s+in\s+range\(([^)]+)\)\s*:/);
+  if (!match) return start+1;
+  const varN  = match[1];
+  const rArgs = match[2].split(',').map(a=>Number(evalExpr(a.trim(),vars,fns)));
+  const [ini,fin,step] = rArgs.length===1?[0,rArgs[0],1]: rArgs.length===2?[rArgs[0],rArgs[1],1]:rArgs;
+  const body  = bloqueHijo(lineas, start);
+  let iters = 0;
+  for(let v=ini; v<fin; v+=step){
+    if(++iters>500) break;
+    vars[varN]=v;
+    let bi=0;
+    while(bi<body.length){ bi = ejecutarLinea(body,bi,vars,fns,salida)-0; bi++; }
+  }
+  return start+1+body.length;
+}
+
+// ── while ──
+function ejWhile(lineas, start, vars, fns, salida){
+  const line  = lineas[start].trim();
+  const cond  = line.slice(6,-1).trim();
+  const body  = bloqueHijo(lineas, start);
+  let iters=0;
+  while(evalCond(cond,vars)){
+    if(++iters>500){salida.push('ERROR: Ciclo infinito detenido (>500 iteraciones)');break;}
+    let bi=0;
+    while(bi<body.length){ bi=ejecutarLinea(body,bi,vars,fns,salida)-0; bi++; }
+  }
+  return start+1+body.length;
+}
+
+// ── if/elif/else ──
+function ejIf(lineas, start, vars, fns, salida){
+  let i=start;
+  let ejecutado=false;
+  while(i<lineas.length){
+    const l=lineas[i].trim();
+    if((l.startsWith('if ')||l.startsWith('elif '))&&l.endsWith(':')){
+      const cond=l.replace(/^(if|elif)\s*/,'').slice(0,-1);
+      const body=bloqueHijo(lineas,i);
+      if(!ejecutado && evalCond(cond,vars)){
+        ejecutado=true;
+        let bi=0;
+        while(bi<body.length){bi=ejecutarLinea(body,bi,vars,fns,salida)-0;bi++;}
+      }
+      i+=1+body.length;
+    } else if(l==='else:'){
+      const body=bloqueHijo(lineas,i);
+      if(!ejecutado){
+        let bi=0;
+        while(bi<body.length){bi=ejecutarLinea(body,bi,vars,fns,salida)-0;bi++;}
+      }
+      i+=1+body.length;
+      break;
+    } else break;
+  }
+  return i;
+}
+
+// ── helpers ──
+function bloqueHijo(lineas, start){
+  const body=[];
+  let j=start+1;
+  while(j<lineas.length&&(lineas[j].startsWith('    ')||lineas[j].startsWith('\t'))){
+    body.push(lineas[j].replace(/^    |\t/,''));
+    j++;
+  }
+  return body;
+}
+function saltarBloque(lineas,i){
+  let j=i+1;
+  while(j<lineas.length&&(lineas[j].startsWith('    ')||lineas[j].startsWith('\t')))j++;
+  return j;
+}
+
+function splitArgs(s){
+  const args=[]; let depth=0,cur='',inStr=false,strChar='';
+  for(const c of s){
+    if(!inStr&&(c==='"'||c==="'")){inStr=true;strChar=c;cur+=c;}
+    else if(inStr&&c===strChar){inStr=false;cur+=c;}
+    else if(!inStr&&(c==='('||c==='[')){depth++;cur+=c;}
+    else if(!inStr&&(c===')'||c===']')){depth--;cur+=c;}
+    else if(!inStr&&c===','&&depth===0){args.push(cur.trim());cur='';}
+    else cur+=c;
+  }
+  if(cur.trim())args.push(cur.trim());
+  return args;
+}
+
+function evalExpr(expr, vars, fns){
+  if(expr===undefined||expr===null) return '';
+  expr=expr.trim();
+  // f-string
+  if((expr.startsWith('f"')||expr.startsWith("f'"))){
+    const q=expr[1]; const inner=expr.slice(2,-1);
+    return inner.replace(/\{([^}]+)\}/g,(_,e)=>String(evalExpr(e,vars,fns)));
+  }
+  // string
+  if((expr.startsWith('"')&&expr.endsWith('"'))||(expr.startsWith("'")&&expr.endsWith("'")))
+    return expr.slice(1,-1);
+  // número
+  if(!isNaN(expr)) return Number(expr);
+  // bool
+  if(expr==='True') return true;
+  if(expr==='False') return false;
+  // llamada función
+  const fnCall=expr.match(/^(\w+)\(([^)]*)\)$/);
+  if(fnCall){
+    const name=fnCall[1]; const rawArgs=fnCall[2];
+    const argVals=splitArgs(rawArgs).map(a=>evalExpr(a,vars,fns));
+    if(name==='len') return argVals[0]?.length??0;
+    if(name==='str') return String(argVals[0]);
+    if(name==='int') return parseInt(argVals[0]);
+    if(name==='float') return parseFloat(argVals[0]);
+    if(name==='abs') return Math.abs(argVals[0]);
+    if(name==='range') return argVals; // simplificado
+    if(fns[name]){
+      const fn=fns[name]; const lv={...vars};
+      fn.params.forEach((p,idx)=>lv[p]=argVals[idx]);
+      let retVal=''; let bi=0;
+      while(bi<fn.body.length){
+        const bl=fn.body[bi].trim();
+        if(bl.startsWith('return ')){retVal=evalExpr(bl.slice(7),lv,fns);break;}
+        bi=ejecutarLinea(fn.body,bi,lv,fns,[])-0; bi++;
+      }
+      return retVal;
+    }
+  }
+  // concatenación +
+  if(expr.includes('+')){
+    const partes=expr.split('+').map(p=>evalExpr(p.trim(),vars,fns));
+    return partes.reduce((a,b)=>typeof a==='string'||typeof b==='string'?String(a)+String(b):a+b);
+  }
+  // operaciones aritméticas básicas
+  try {
+    const safe=expr.replace(/(\b\w+\b)/g,m=>{
+      if(vars[m]!==undefined) return typeof vars[m]==='string'?`"${vars[m]}"`:vars[m];
+      return m;
+    });
+    // eslint-disable-next-line no-new-func
+    return Function('"use strict";return ('+safe+')')();
+  } catch(e){}
+  // variable
+  if(vars[expr]!==undefined) return vars[expr];
+  return expr;
+}
+
+function evalCond(cond, vars){
+  try {
+    const safe=cond.replace(/(\b\w+\b)/g,m=>{
+      if(m==='True') return 'true';
+      if(m==='False') return 'false';
+      if(vars[m]!==undefined) return typeof vars[m]==='string'?`"${vars[m]}"`:vars[m];
+      return m;
+    });
+    // eslint-disable-next-line no-new-func
+    return !!Function('"use strict";return ('+safe+')')();
+  } catch(e){ return false; }
+}
+
+/* ════════════════════════════════════════
+   ARTÍSTICA – CARRUSEL
+════════════════════════════════════════ */
+let carouselImages = [];
+
+document.getElementById('inputCarrusel').addEventListener('change', function(){
+  Array.from(this.files).forEach(file => {
+    const r = new FileReader();
+    r.onload = e => agregarFotoCarrusel(e.target.result, file.name);
+    r.readAsDataURL(file);
+  });
+  this.value = ''; // reset para permitir re-subir
+});
+
+function agregarFotoCarrusel(src, nombre){
+  // Ocultar slide vacío en la primera foto
+  if(carouselImages.length === 0){
+    const sv = document.getElementById('slideVacio');
+    if(sv) sv.remove();
+  }
+  carouselImages.push(src);
+  const idx = carouselImages.length - 1;
+
+  // Slide en carrusel
+  const inner = document.getElementById('carouselInner');
+  const div = document.createElement('div');
+  div.className = 'carousel-item' + (idx === 0 ? ' active' : '');
+  div.innerHTML = `<img src="${src}" alt="Foto ${idx+1}"/>`;
+  inner.appendChild(div);
+
+  // Indicador
+  const indWrap = document.getElementById('carouselIndicators');
+  const ind = document.createElement('button');
+  ind.type = 'button';
+  ind.dataset.bsTarget = '#galeriaCarrusel';
+  ind.dataset.bsSlideTo = idx;
+  if(idx === 0) ind.classList.add('active');
+  indWrap.appendChild(ind);
+
+  // Miniatura en tira
+  const tira = document.getElementById('thumbTira');
+  const btn  = document.getElementById('btnAgregarFoto');
+  const mini = document.createElement('div');
+  mini.className = 'thumb-mini';
+  mini.title = nombre || `Foto ${idx+1}`;
+  mini.innerHTML = `<img src="${src}" alt="miniatura"/>`;
+  mini.addEventListener('click', () => {
+    const carousel = bootstrap.Carousel.getOrCreateInstance(document.getElementById('galeriaCarrusel'));
+    carousel.to(idx);
+  });
+  tira.insertBefore(mini, btn);
+
+  actualizarContadorSlide();
+}
+
+function actualizarContadorSlide(){
+  const n = carouselImages.length;
+  document.getElementById('slideCounter').textContent = n + (n===1?' foto':' fotos');
+}
+
+function mostrarVideo2(url){
+  const frame = document.getElementById('videoFrame2');
+  if(!url){ frame.innerHTML=''; return; }
+  const yt = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+  if(yt){
+    frame.innerHTML=`<div class="ratio ratio-16x9" style="border-radius:12px;overflow:hidden;margin-top:6px">
+      <iframe src="https://www.youtube.com/embed/${yt[1]}" allowfullscreen></iframe></div>`;
+    return;
+  }
+  frame.innerHTML=`<a href="${url}" target="_blank" class="btn btn-sm mt-1" style="background:var(--accent);color:#fff;border-radius:10px;font-size:.8rem;">
+    <i class="bi bi-box-arrow-up-right me-1"></i>Ver enlace</a>`;
+}
+
+/* ════════════════════════════════════════
+   MAKECODE / EDITOR DE BLOQUES
+════════════════════════════════════════ */
+// Proyectos predefinidos con sus URLs reales de embed
+const mcProyectos = {
+  'Hola Micro:bit': {
+    embed: 'https://makecode.microbit.org/---run?id=_aaabbbccc111',
+    editor: 'https://makecode.microbit.org/#editor',
+    link: 'https://makecode.microbit.org/',
+    plat: 'Micro:bit'
+  },
+  'Juego con botones': {
+    embed: 'https://makecode.microbit.org/---run?id=_bbb222ccc333',
+    editor: 'https://makecode.microbit.org/#editor',
+    link: 'https://makecode.microbit.org/',
+    plat: 'Micro:bit'
+  },
+  'Mi proyecto Scratch': {
+    embed: 'https://scratch.mit.edu/projects/123456789/embed',
+    editor: 'https://scratch.mit.edu/projects/123456789/editor',
+    link: 'https://scratch.mit.edu/projects/123456789/',
+    plat: 'Scratch'
+  },
+  'Reto Edabit': {
+    embed: '',
+    editor: 'https://app.edabit.com',
+    link: 'https://app.edabit.com',
+    plat: 'Web'
+  }
+};
+
+let tabActualMC = 'embed';
+
+// Cargar proyecto activo al iniciar
+window.addEventListener('load', () => {
+  const activo = document.querySelector('.mc-proyecto.active');
+  if(activo) cargarProyectoMC(activo);
+  // re-attach eventos
+  document.querySelectorAll('.mc-proyecto').forEach(item => {
+    item.addEventListener('click', function(){
+      document.querySelectorAll('.mc-proyecto').forEach(i => i.classList.remove('active'));
+      this.classList.add('active');
+      cargarProyectoMC(this);
+    });
+  });
+});
+
+function cargarProyectoMC(item){
+  const nombre = item.querySelector('.mc-name').textContent;
+  const plat   = item.querySelector('.mc-plat').textContent;
+  const url    = item.dataset.url || '';
+  const embed  = item.dataset.embed || '';
+
+  document.getElementById('mcNombreActivo').textContent = nombre;
+  document.getElementById('mcPlatActiva').textContent   = plat;
+  document.getElementById('mcAbrirBtn').href = url || '#';
+
+  // Guardar en el item para tabs
+  item.dataset.urlActual  = url;
+  item.dataset.embedActual = embed;
+
+  actualizarIframeMC(tabActualMC);
+}
+
+function cambiarTabMC(tab){
+  tabActualMC = tab;
+  ['embed','editor','info'].forEach(t => {
+    document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1)).classList.remove('active');
+  });
+  document.getElementById('tab'+tab.charAt(0).toUpperCase()+tab.slice(1)).classList.add('active');
+
+  const infoContent = document.getElementById('tabInfoContent');
+  const iframe      = document.getElementById('mcIframe');
+  const loading     = document.getElementById('mcLoading');
+
+  if(tab === 'info'){
+    iframe.style.display = 'none';
+    loading.style.display = 'none';
+    infoContent.style.display = 'block';
+    return;
+  }
+  infoContent.style.display = 'none';
+  iframe.style.display = 'block';
+  actualizarIframeMC(tab);
+}
+
+function actualizarIframeMC(tab){
+  const activo = document.querySelector('.mc-proyecto.active');
+  if(!activo) return;
+
+  const loading = document.getElementById('mcLoading');
+  const iframe  = document.getElementById('mcIframe');
+
+  let src = '';
+  if(tab === 'embed'){
+    src = activo.dataset.embed || activo.dataset.url || '';
+  } else {
+    // Para editor: MakeCode abre editor, Scratch abre editor
+    const url = activo.dataset.url || '';
+    if(url.includes('scratch.mit.edu')){
+      src = url.replace('/embed','').replace('projects/','projects/') + (url.includes('/editor') ? '' : '/editor');
+    } else if(url.includes('makecode')){
+      src = 'https://makecode.microbit.org/';
+    } else {
+      src = url;
+    }
+  }
+
+  if(!src){
+    iframe.src = 'about:blank';
+    loading.style.display = 'none';
+    iframe.style.display = 'block';
+    iframe.srcdoc = `<div style="font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:12px;background:#f0f9ff;color:#0369a1;padding:30px;text-align:center;">
+      <div style="font-size:3rem">🔗</div>
+      <strong>Enlace externo</strong>
+      <p style="font-size:.85rem">Este proyecto se abre en una nueva pestaña.</p>
+      <a href="${activo.dataset.url}" target="_blank" style="background:#38bdf8;color:#fff;padding:8px 20px;border-radius:10px;text-decoration:none;font-weight:700;">Abrir proyecto ↗</a>
+    </div>`;
+    return;
+  }
+
+  loading.style.display = 'flex';
+  iframe.style.display = 'none';
+  iframe.src = src;
+}
+
+function ocultarLoadingMC(){
+  document.getElementById('mcLoading').style.display = 'none';
+  document.getElementById('mcIframe').style.display  = 'block';
+}
+
+function agregarProyectoMC(){
+  const url    = document.getElementById('mcUrlInput').value.trim();
+  const nombre = document.getElementById('mcNombreInput').value.trim() || 'Mi Proyecto';
+  if(!url){ alert('Por favor escribe la URL del proyecto.'); return; }
+
+  // Detectar plataforma
+  let plat = 'Web'; let emoji = '🔗'; let embedUrl = url;
+  if(url.includes('makecode.microbit')){ plat='Micro:bit'; emoji='🤖';
+    embedUrl = url.replace('/#editor','').replace('/#pub:','https://makecode.microbit.org/---run?id='); }
+  else if(url.includes('scratch.mit')){ plat='Scratch'; emoji='🐱';
+    if(!url.includes('/embed')) embedUrl = url + (url.endsWith('/')?'embed':'/'+'embed'); }
+  else if(url.includes('makecode.com')){ plat='MakeCode'; emoji='🧩'; }
+
+  const platColors = { 'Micro:bit':'background:#dbeafe;color:#1d4ed8', 'Scratch':'background:#ffe4e6;color:#e11d48', 'MakeCode':'background:#d1fae5;color:#065f46', 'Web':'background:#fef9c3;color:#854d0e' };
+
+  const lista = document.getElementById('listaMC');
+  const div   = document.createElement('div');
+  div.className = 'mc-proyecto';
+  div.dataset.url   = url;
+  div.dataset.embed = embedUrl;
+  div.dataset.tipo  = 'embed';
+  div.innerHTML = `
+    <div class="mc-icon">${emoji}</div>
+    <div><div class="mc-name">${nombre}</div><div class="mc-desc">${plat}</div></div>
+    <span class="mc-plat" style="${platColors[plat]||platColors['Web']}">${plat}</span>`;
+  div.addEventListener('click', function(){
+    document.querySelectorAll('.mc-proyecto').forEach(i=>i.classList.remove('active'));
+    this.classList.add('active');
+    cargarProyectoMC(this);
+  });
+  lista.appendChild(div);
+
+  document.getElementById('mcUrlInput').value = '';
+  document.getElementById('mcNombreInput').value = '';
+  div.click(); // cargar automáticamente
+}
+</script>
+
+</body>
+</html>
